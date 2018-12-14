@@ -1,43 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
-import { routes } from './app.routes';
+import { SharedModule } from './common/shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/layout/header/header.component';
-import { FooterComponent } from './shared/layout/footer/footer.component';
-
-import { PokemonService } from './shared/services/pokemon.service';
-import { ViewportService } from './shared/services/viewport.service';
-import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
-import { HomeComponent } from './home/home.component';
-import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
-import { AboutComponent } from './about/about.component';
-import { PokemonModalComponent } from './pokemon-modal/pokemon-modal.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    PokemonListComponent,
-    HomeComponent,
-    PokemonDetailComponent,
-    AboutComponent,
-    PokemonModalComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    }),
+    HttpClientModule,
+    SharedModule,
+    AppRoutingModule
   ],
-  providers: [
-    PokemonService,
-    ViewportService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,8 +3,12 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "dist",
+    "public": "dist/ng-pokedex",
     "rewrites": [
+      {
+        "source": "/service-worker.js",
+        "destination": "/ngsw-worker.js"
+      },
       {
         "source": "**",
         "destination": "/index.html"
